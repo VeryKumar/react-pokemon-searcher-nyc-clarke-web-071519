@@ -1,27 +1,35 @@
-import React from 'react'
-import { Card } from 'semantic-ui-react'
+import React from "react";
+import { Card } from "semantic-ui-react";
 
-class PokemonCard extends React.Component {
-  render() {
-    return (
-      <Card>
-        <div>
-          <div className="image">
-            <img alt="oh no!" />
-          </div>
-          <div className="content">
-            <div className="header">POKEMON NAME HERE</div>
-          </div>
-          <div className="extra content">
-            <span>
-              <i className="icon heartbeat red" />
-              POKEMON HP HERE hp
-            </span>
-          </div>
+const PokemonCard = ({ pokemon, handleClick }) => {
+  const { id, name, stats, sprites } = pokemon;
+  const { front, back } = sprites;
+  const hp = stats.find(stat => stat.name === "hp").value;
+  // console.log(hp);
+  // console.log(pokemon);
+  return (
+    <Card>
+      <div>
+        <div className="image">
+          <img
+            src={front}
+            alt="oh no!"
+            //send the event, and both images to PokemonIndex to handle with
+            onClick={event => handleClick(event, front, back)}
+          />
         </div>
-      </Card>
-    )
-  }
-}
+        <div className="content">
+          <div className="header">{name}</div>
+        </div>
+        <div className="extra content">
+          <span>
+            <i className="icon heartbeat red" />
+            {hp}
+          </span>
+        </div>
+      </div>
+    </Card>
+  );
+};
 
-export default PokemonCard
+export default PokemonCard;
